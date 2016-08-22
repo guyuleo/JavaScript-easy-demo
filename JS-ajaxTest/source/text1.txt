@@ -1,0 +1,1 @@
+img/spring.jpg;img/summer.jpg;img/autumn.jpg;img/winter.jpg

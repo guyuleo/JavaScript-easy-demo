@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ajax入门作业</title>
+	<style>
+		*{margin:0;padding:0;}
+		ul li{list-style:none;}
+		li{float:left;width:80px;height:30px;background: #cf0;text-align: center;line-height: 30px;}
+		li.cur{background:#fc0;}
+		ul{overflow: hidden;}
+	</style>
+</head>
+<body>
+	<ul>
+		<li class="cur">春</li>
+		<li>夏</li>
+		<li>秋</li>
+		<li>冬</li>
+	</ul>
+	<div>
+		<img src="img/spring.jpg" alt="四季如画" width="320" height="320" />
+	</div>
+	<script>
+	var lis = document.getElementsByTagName('li');
+	var img=document.getElementsByTagName("img");
+	var div = document.getElementsByTagName("div");
+	for(var i=0;i<lis.length;i++){
+		lis[i].index = i;
+		lis[i].onclick = function(){
+			for(var i=0;i<lis.length;i++){
+				lis[i].style.background="#cf0";
+			}
+			this.style.background="#fc0";
+			var _this=this;
+			var xhr = new XMLHttpRequest();
+			xhr.open("get","source/"+_this.index+1+".html",true);
+			xhr.send(null);
+			xhr.onload = function(){
+				// console.log(xhr.responseText);
+				var txt= xhr.responseText;
+				div[0].innerHTML = txt;
+			}
+		}
+	}
+	</script>
+</body>
+</html>
