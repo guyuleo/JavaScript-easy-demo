@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	*{margin: 0;padding: 0;}
+	#main{
+		/*margin-left: 20px;
+		margin-top: 20px;*/
+	}
+	#top{overflow: hidden;}
+	#left{
+		float: left;
+		width: 600px;
+		height: 270px;
+		background: url(image/alliancem.jpg) no-repeat;
+		position: relative;
+	}
+	#right{
+		float: left;
+		width: 600px;
+		height: 270px;
+		margin-left: 30px;
+		overflow: hidden;
+		display: none;
+	}
+	#inner{
+		width: 150px;
+		height: 54px;
+		background: #FFF;
+		opacity: 0.5;
+		cursor: move;
+		position: absolute;
+		display: none;
+	}
+	#bottom{
+		margin-top: 30px;
+	}
+	</style>
+</head>
+<body>
+	<div id="main">
+		<div id="top">
+			<div id="left">
+				<div id="inner"></div>
+			</div>
+			<div id="right"><img src="image/alliance.jpg" alt="" id="bimg"></div>
+		</div>
+		<div id="bottom">
+			<img src="image/alliances.jpg" alt="">
+			<img src="image/hordes.jpg" alt="">
+		</div>
+	</div>
+	<script>
+	var oMain = document.getElementById("main");
+	var oInner = document.getElementById("inner");
+	var oLeft = document.getElementById("left");
+	var oRight = document.getElementById("right");
+	var oBimg = document.getElementById("bimg");
+	var oBtn = document.getElementById("bottom").getElementsByTagName('img');
+	oLeft.onmouseover=function(){
+		oInner.style.display="block";
+		oRight.style.display="block";
+		var numL= oLeft.offsetWidth/oInner.offsetWidth;
+		var numT = oLeft.offsetHeight/oInner.offsetHeight;
+		var maxWidth = oLeft.clientWidth-oInner.offsetWidth;
+		var maxHeight = oLeft.clientHeight- oInner.offsetHeight;
+		var oInnerW = oInner.offsetWidth/2;
+		var oInnerH  = oInner.offsetHeight/2;
+		oLeft.onmousemove = function(event){
+			var e = event||window.event;
+			var lefts = e.pageX-oInnerW;
+			var tops = e.pageY-oInnerH;
+			if(lefts<0){
+				lefts=0
+			}
+			if(tops<0){
+				tops=0
+			}
+			if(lefts>maxWidth){
+				lefts=maxWidth;
+			}
+			if(tops>maxHeight){
+				tops=maxHeight;
+			}
+			oInner.style.left = lefts  +"px";
+			oInner.style.top = tops  +"px";
+			oRight.scrollLeft=numL*lefts;
+			oRight.scrollTop = numT*tops;
+		}
+
+	}
+	oLeft.onmouseout = function(){
+		oInner.style.display="none";
+		oRight.style.display="none";
+		oLeft.onmousemove = null;
+	}
+	oBtn[1].onclick =  function(){
+		oLeft.style.background="url(image/hordem.jpg)";
+		oBimg.src="image/horde.jpg"
+	}
+	oBtn[0].onclick =  function(){
+		oLeft.style.background="url(image/alliancem.jpg)";
+		oBimg.src="image/alliance.jpg"
+	}
+	</script>
+</body>
+</html>
